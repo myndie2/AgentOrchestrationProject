@@ -1,15 +1,21 @@
+import os
 from dotenv import load_dotenv
-from langchain.chat_models import ChatOpenAI
-from langchain.schema import SystemMessage, HumanMessage
+from openai import OpenAI
 
 load_dotenv()
 
-llm = ChatOpenAI(model="gpt-4.1")
+client = OpenAI(
+    api_key=os.getenv("HF_TOKEN"),
+    base_url="https://router.huggingface.co/v1"
+)
 
-messages = [
-    SystemMessage(content="You are a helpful teaching assistant."),
-    HumanMessage(content="Explain prompt engineering.")
-]
+response = client.chat.completions.create(
+    model="meta-llama/Meta-Llama-3-8B-Instruct",  
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."},
+        {"role": "user", "content": "Explain prompt engineering in 5 sentences."}
+    ],
+    max_tokens=150
+)
 
-response = llm.invoke(messages)
-print(response.content)
+print(response.choices[0].message.content)

@@ -1,15 +1,22 @@
+import os
 from dotenv import load_dotenv
-from langchain.prompts import PromptTemplate
-from langchain.chat_models import ChatOpenAI
+from openai import OpenAI
 
 load_dotenv()
 
-llm = ChatOpenAI(model="gpt-4.1")
-
-template = PromptTemplate(
-    input_variables=["question"],
-    template="Answer the following question clearly:\n{question}"
+client = OpenAI(
+    api_key=os.getenv("HF_TOKEN"),
+    base_url="https://router.huggingface.co/v1"
 )
 
-response = llm.invoke(template.format(question="What is RAG?"))
-print(response.content)
+def answer_question(question: str) -> str:
+    prompt = f"Answer the following question clearly:\n{question}"
+    resp = client.chat.completions.create(
+        model="meta-llama/Meta-Llama-3-8B-Instruct",
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=150,
+        temperature=0.5
+    )
+    return resp.choices[0].message.content
+
+print(answer_question("What is RAG?"))

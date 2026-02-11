@@ -1,17 +1,22 @@
+import os
 from dotenv import load_dotenv
-from langchain.chat_models import ChatOpenAI
-from langchain.prompts import PromptTemplate
+from openai import OpenAI
 
 load_dotenv()
 
-llm = ChatOpenAI(model="gpt-4.1")
-
-template = PromptTemplate(
-    input_variables=["topic"],
-    template="Explain {topic} in simple terms."
+client = OpenAI(
+    api_key=os.getenv("HF_TOKEN"),
+    base_url="https://router.huggingface.co/v1"
 )
 
-prompt = template.format(topic="vector databases")
-response = llm.invoke(prompt)
+def explain(topic: str) -> str:
+    prompt = f"Explain {topic} in simple terms."
+    resp = client.chat.completions.create(
+        model="meta-llama/Meta-Llama-3-8B-Instruct",
+        messages=[{"role": "user", "content": prompt}],
+        max_tokens=150,
+        temperature=0.5
+    )
+    return resp.choices[0].message.content
 
-print(response.content)
+print(explain("vector databases"))
