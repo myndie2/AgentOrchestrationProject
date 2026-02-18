@@ -9,9 +9,11 @@ client = OpenAI(
     base_url="https://router.huggingface.co/v1"
 )
 
-topic = "tomato"
+question = "What is the most famous cooker in France?"
 
-prompt = f"Give a receipe with: {topic}."
+template = "Answer the following question clearly:\n{question}"
+
+prompt = template.format(question=question)
 
 response = client.responses.create(
     model="meta-llama/Meta-Llama-3-8B-Instruct",
