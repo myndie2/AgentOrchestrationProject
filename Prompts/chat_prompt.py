@@ -12,8 +12,8 @@ client = OpenAI(
 response = client.chat.completions.create(
     model="meta-llama/Meta-Llama-3-8B-Instruct",  
     messages=[
-        {"role": "system", "content": "You are a helpful assistant."},
-        {"role": "user", "content": "Explain prompt engineering in 5 sentences."}
+        {"role": "system", "content": "You are a head chef."},
+        {"role": "user", "content": "Give a receipe with something everybody have in their fridge."}
     ],
     max_tokens=150
 )

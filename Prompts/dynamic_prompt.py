@@ -10,7 +10,7 @@ client = OpenAI(
 )
 
 def explain(topic: str) -> str:
-    prompt = f"Explain {topic} in simple terms."
+    prompt = f"Give a receipe with: {topic}."
     resp = client.chat.completions.create(
         model="meta-llama/Meta-Llama-3-8B-Instruct",
         messages=[{"role": "user", "content": prompt}],
@@ -19,4 +19,4 @@ def explain(topic: str) -> str:
     )
     return resp.choices[0].message.content
 
-print(explain("vector databases"))
+print(explain("tomato"))

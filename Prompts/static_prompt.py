@@ -18,5 +18,5 @@ def ask_fixed_prompt(prompt: str) -> str:
     )
     return resp.choices[0].message.content
 
-prompt = "Explain what a Large Language Model is in one sentence."
+prompt = "Give me a receipe with oil, garlic, mozarella"
 print(ask_fixed_prompt(prompt))

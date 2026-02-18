@@ -19,4 +19,4 @@ def answer_question(question: str) -> str:
     )
     return resp.choices[0].message.content
 
-print(answer_question("What is RAG?"))
+print(answer_question("What can I cook with milk ?"))
