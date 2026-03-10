@@ -1,0 +1,8 @@
+Tools
+https://huggingface.co/docs/inference-providers/guides/gpt-oss#tool-calling
+
+OpenAI Chat Completion
+https://huggingface.co/docs/inference-providers/tasks/chat-completion
+
+OpenAI Chat Completion Client With Tools
+https://docs.vllm.ai/en/v0.6.0/getting_started/examples/openai_chat_completion_client_with_tools.html
